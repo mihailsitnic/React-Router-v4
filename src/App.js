@@ -1,42 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import './App.css';
 
-const Links = () => {
-  return(
-    <nav>
-      <Link to="/home">Home</Link>
-      <Link to="/about">About</Link>
-      <Header />
-      <Content />
-    </nav>
-  )
-}
-
-const Header = ({match}) => (
-  <header className="header">
+const Home = () => (<h1>Home</h1>)
+const Menu = () => (
+  <div>
+    <h1>Menu</h1>
+    <Link to="/menu/food">Food</Link>
+    <Link to="/menu/drink">Drinks</Link>
+    <Link to="/menu/sides">Sides</Link>
     <Route
-      path='/:page'
-      render={({match}) => (
-        <h1>{match.params.page} header</h1>
-      )} />
-  </header>
-)
-
-const Content = ({match}) => (
-  <section className="content">
-    <Route
-      path='/:page'
-      render={({match}) => (
-        <p>{match.params.page} content</p>
-      )} />
-  </section>
+      path="/menu/:section"
+      render={({match}) => <h2>{match.params.section}</h2>} />
+  </div>
 )
 
 const App = (props) => (
   <Router>
     <div>
-      <Links />
+      <Link to="/">Home</Link>
+      <Link to="/menu">Menu</Link>
+      <Route exact path="/" component={Home} />
+      <Route path="/menu" component={Menu} />
     </div>
   </Router>
 )
